@@ -1,9 +1,24 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+router.post('/', async (req, res) => {
+	try {
+		const userData = await User.create(req.body);
+
+		req.session.save(() => {
+			req.session.user_id = userData.id;
+			req.session.logged_in = true;
+
+			res.status(200).json(userData);
+		});
+
+	} catch (err) {
+		res.status(400).json(err);
+	}
+});
+
 router.post('/login', async (req, res) => {
 	try {
-		// Find the user who matches the posted e-mail address
 		const userData = await User.findOne({ where: { email: req.body.email } });
 
 		if (!userData) {
@@ -13,7 +28,6 @@ router.post('/login', async (req, res) => {
 			return;
 		}
 
-		// Verify the posted password with the password store in the database
 		const validPassword = await userData.checkPassword(req.body.password);
 
 		if (!validPassword) {
@@ -23,7 +37,6 @@ router.post('/login', async (req, res) => {
 			return;
 		}
 
-		// Create session variables based on the logged in user
 		req.session.save(() => {
 			req.session.user_id = userData.id;
 			req.session.logged_in = true;
@@ -36,31 +49,8 @@ router.post('/login', async (req, res) => {
 	}
 });
 
-
-router.post('/register', async (req, res) => {
-	try {
-		// Extract user data from request body
-		const { name, email, password } = req.body;
-
-		// Check if the email is already registered
-		const existingUser = await User.findOne({ where: { email } });
-		if (existingUser) {
-			return res.status(400).json({ message: 'Email already exists' });
-		}
-
-		// Create a new user record in the database
-		const newUser = await User.create({ name, email, password });
-
-		// Respond with the newly created user object
-		res.status(200).json(newUser);
-	} catch (err) {
-		res.status(500).json(err);
-	}
-});
-
 router.post('/logout', (req, res) => {
 	if (req.session.logged_in) {
-		// Remove the session variables
 		req.session.destroy(() => {
 			res.status(204).end();
 		});
@@ -70,5 +60,3 @@ router.post('/logout', (req, res) => {
 });
 
 module.exports = router;
-
-

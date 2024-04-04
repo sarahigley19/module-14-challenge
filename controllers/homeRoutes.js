@@ -1,21 +1,75 @@
 const router = require('express').Router();
-const { User } = require('../models');
+
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-// Prevent non logged in users from viewing the homepage
-router.get('/', withAuth, async (req, res) => {
+router.get('/', async (req, res) => {
+	console.log("first here");
 	try {
-		const userData = await User.findAll({
-			attributes: { exclude: ['password'] },
-			order: [['name', 'ASC']],
+		
+		const postData = await Post.findAll({
+			include: [
+				{
+					model: User,
+					attributes: ['name'],
+				},
+			],
 		});
-
-		const users = userData.map((project) => project.get({ plain: true }));
+		
+		const posts = postData.map((Post) => Post.get({ plain: true }));
 
 		res.render('homepage', {
-			users,
-			// Pass the logged in flag to the template
+			posts,
+			logged_in: req.session.logged_in
+		});
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+router.get('/post/:id', async (req, res) => {
+	try {
+		const postData = await Post.findByPk(req.params.id, {
+			include: [
+				{
+					model: User,
+					attributes: ['name', 'id'],
+				},
+		
+				{
+					model: Comment, include: [User],
+					attributes: ['text']
+				}
+			],
+		});
+		const post = postData.get({ plain: true });
+		const userId = req.session.user_id;
+		const postUserId = post.user_id;
+		const sameUser = userId === postUserId;
+	
+		res.render('post', {
+			...post,
 			logged_in: req.session.logged_in,
+			sameUser
+		});
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+router.get('/profile', withAuth, async (req, res) => {
+	try {
+	
+		const userData = await User.findByPk(req.session.user_id, {
+			attributes: { exclude: ['password'] },
+			include: [Post],
+		});
+
+		const user = userData.get({ plain: true });
+
+		res.render('profile', {
+			...user,
+			logged_in: true
 		});
 	} catch (err) {
 		res.status(500).json(err);
@@ -23,13 +77,38 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-	// If a session exists, redirect the request to the homepage
 	if (req.session.logged_in) {
-		res.redirect('/');
+		res.redirect('/profile');
 		return;
 	}
 
 	res.render('login');
 });
 
+router.get('/comment/:id', withAuth, async (req, res) => {
+	const postData = await Post.findByPk(req.params.id,
+		{
+			include: [User,
+				{
+					model: Comment, attributes: ['text'], include: [User],
+				}]
+		});
+
+	const postDataPlain = postData.get({ plain: true });
+
+	res.render('comment', { postDataPlain, logged_in: req.session.logged_in, userId: req.session.user_id });
+})
+router.get('/edit/:id', withAuth, async (req, res) => {
+	const postData = await Post.findByPk(req.params.id,
+		{
+			include: [User,
+				{
+					model: Comment, attributes: ['text'], include: [User],
+				}]
+		});
+
+	const postDataPlain = postData.get({ plain: true });
+
+	res.render('edit', { postDataPlain, logged_in: req.session.logged_in, userId: req.session.user_id });
+})
 module.exports = router;
