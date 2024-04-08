@@ -1,6 +1,7 @@
-
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const User = require('./User'); // Import the User model
+
 class Post extends Model { }
 
 Post.init(
@@ -11,12 +12,10 @@ Post.init(
 			primaryKey: true,
 			autoIncrement: true,
 		},
-	
 		title: {
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-	
 		text: {
 			type: DataTypes.STRING,
 		},
@@ -25,7 +24,6 @@ Post.init(
 			allowNull: false,
 			defaultValue: DataTypes.NOW,
 		},
-			
 		user_id: {
 			type: DataTypes.INTEGER,
 			references: {
@@ -43,5 +41,10 @@ Post.init(
 	}
 );
 
+// Establish association between User and Post
+Post.belongsTo(User, {
+	foreignKey: 'user_id', // Specify the foreign key
+	onDelete: 'CASCADE', // Optional: Specify the delete behavior
+});
 
 module.exports = Post;

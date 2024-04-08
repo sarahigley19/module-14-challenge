@@ -1,3 +1,4 @@
+const userRoutes = require('./controllers/api/userRoutes');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -34,9 +35,11 @@ app.engine('handlebars', hbs.engine);
 console.log("handlebars")
 app.set('view engine', 'handlebars');
 
+app.use('/api/users', userRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use(routes);
 

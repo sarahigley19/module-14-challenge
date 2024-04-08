@@ -5,26 +5,24 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Tech Blog</title>
+	<link rel="icon" type="logo" href="/css/assets/favicon.ico">
 	<link rel="stylesheet" href="/css/jass.css">
 </head>
 
 <body>
-	<div class="flex-column justify-space-around">
-		<header class="display-flex justify-space-between align-center p-2">
-			<h1>
-				<span role="img" aria-label="money"></span>
-				<a href="/">Tech Blog</a>
-			</h1>
+		<header>
 			<nav>
+				<a href="/"><img src="/css/assets/tech-wobaboba.png" alt="time tracker logo" width="20%">
+				</a>
 				{{#if logged_in}}
-				<a href="/profile">Profile</a> |
-				<button class="no-button" id="logout">logout</button>
+				<a href="/register">REGISTER</a> |
+				<button id="logout">LOGOUT</button>
 				{{else}}
-				<a href="/login">Login</a>
+				{{!--<a href="/login">LOGIN</a>--}}
 				{{/if}}
 			</nav>
 		</header>
-		<main class="container container-fluid mt-5">
+		<main>
 			{{{ body }}}
 		</main>
 		<footer>
@@ -33,7 +31,7 @@
 	</div>
 
 	{{#if logged_in}}
-	<script src="/js/logout.js"></script>
+	<script src="./js/logout.js"></script>
 	{{/if}}
 </body>
 

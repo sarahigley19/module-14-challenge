@@ -24,6 +24,7 @@ router.get('/', async (req, res) => {
 		});
 	} catch (err) {
 		res.status(500).json(err);
+		console.log(err)
 	}
 });
 
@@ -57,7 +58,7 @@ router.get('/post/:id', async (req, res) => {
 	}
 });
 
-router.get('/profile', withAuth, async (req, res) => {
+router.get('/register', withAuth, async (req, res) => {
 	try {
 	
 		const userData = await User.findByPk(req.session.user_id, {
@@ -67,7 +68,7 @@ router.get('/profile', withAuth, async (req, res) => {
 
 		const user = userData.get({ plain: true });
 
-		res.render('profile', {
+		res.render('register', {
 			...user,
 			logged_in: true
 		});
@@ -78,7 +79,7 @@ router.get('/profile', withAuth, async (req, res) => {
 
 router.get('/login', (req, res) => {
 	if (req.session.logged_in) {
-		res.redirect('/profile');
+		res.redirect('/register');
 		return;
 	}
 
