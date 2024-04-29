@@ -3,9 +3,28 @@
  	text-align: left;
  	color: white;
  	padding: 20px;
+	display: flex;
+	align-items: center;
+
  }
 
+ footer {
+ 	background-color: #333;
+ 	color: white;
+ 	text-align: center;
+ 	padding: 10px 0;
+ }
 
+ nav button {
+ 	margin-left: 10px;
+	margin-right: 40px;
+	position: absolute;
+	right: 0;
+	
+		
+ }
+
+ 
 body {
 	text-align: center;
 	font-weight: 500;
@@ -16,11 +35,10 @@ body {
 	padding-top: 0px;
 }
 
+
  h1 {
- 	text-align: left;
  	color: #f7f5f2;
  	text-decoration: none;
- 	display: inline;
  	font-size: 30px;
  }
 
@@ -29,12 +47,37 @@ body {
  	color: #f7f5f2;
  }
 
- a {
- 	color: white;
- 	text-decoration: none;
- 	padding: 20px;
+ h3 {
+	text-align: center;
+	color: #ea9b2a;
  }
 
+  h4 {
+  	text-align: center;
+  	color: #f7f5f2;
+  }
+
+ #postComment h5 {
+	text-align: left;
+	color: #f7f5f2;
+ }
+
+  #postText h5 {
+  	text-align: left;
+  	color: #f7f5f2;
+  }
+
+ a {
+ 	text-decoration: none;
+ 	padding: 20px;
+	color: #f7f5f2;
+	
+ }
+
+ p {
+	font-size: 16px;
+	color: white;
+ }
 form {
 	display: flex;
 	flex-direction: column;
@@ -51,6 +94,12 @@ form {
 
 .register {
 	margin: 40px;
+}
+
+#profile{
+	text-align: center;
+	color: #ea9b2a;
+	padding-left: 400px;
 }
 
 label {
@@ -108,7 +157,80 @@ button {
 	font-family: "davis-sans", sans-serif;
 }
 
+.comment-box {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
+#btn {
+	margin: 20px;
+}
+ 
+#project-desc {
+	width: 350px;
+	height: 200px;
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	font-family: 'Josefin Sans';
+}
+
+#project-comment {
+	width: 350px;
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+	border: none;
+	border-radius: 5px;
+}
+
+#commentText {
+	width: 350px;
+	height: 200px;
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	font-family: 'Josefin Sans';
+}
+
+/*#postText {
+		width: 350px;
+		height: 200px;
+			
+}
+
+#postComment {
+		width: 350px;
+		height: 200px;
+		margin-top: 50px;
+			
+}*/
+
+#project-comment {
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	font-family: 'Josefin Sans';
+
+}
+
+#postText textarea {
+	width: 350px;
+		height: 200px;
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+		border-radius: 5px;
+		font-family: 'Josefin Sans';
+}
+
+#postComment textarea {
+		width: 350px;
+			height: 200px;
+	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	font-family: 'Josefin Sans';
+}
+
+.editpost {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+}
 /*
  
  nav {
@@ -209,3 +331,4 @@ button {
 	border-radius: 5px;
 	cursor: pointer;
 }*/
+

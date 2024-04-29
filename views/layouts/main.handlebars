@@ -2,37 +2,32 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Tech Blog</title>
-	<link rel="icon" type="logo" href="/css/assets/favicon.ico">
-	<link rel="stylesheet" href="/css/jass.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Wobaboba</title>
+  <link rel="icon" type="favicon" href="/css/assets/favicon.ico">
+  <link rel="stylesheet" href="/css/jass.css">
 </head>
 
 <body>
-		<header>
-			<nav>
-				<a href="/"><img src="/css/assets/tech-wobaboba.png" alt="time tracker logo" width="20%">
-				</a>
-				{{#if logged_in}}
-				<a href="/register">REGISTER</a> |
-				<button id="logout">LOGOUT</button>
-				{{else}}
-				{{!--<a href="/login">LOGIN</a>--}}
-				{{/if}}
-			</nav>
-		</header>
-		<main>
-			{{{ body }}}
-		</main>
-		<footer>
-
-		</footer>
-	</div>
-
-	{{#if logged_in}}
-	<script src="./js/logout.js"></script>
-	{{/if}}
+  <header>
+        <nav>
+          <a href="/"><img src="/css/assets/tech-wobaboba.png" alt="time tracker logo" width="20%">
+          </a>
+            {{#if logged_in}}
+            <a id="profile" href="/profile">Profile</a>
+            <button id="logout">Logout</button>
+            {{!--{{else}}
+            <button><a href="/login">Login</a></button>--}}
+            {{/if}}
+        </nav>
+      {{!--<h1>Welcome to Tech Wobaboba!</h1>--}}
+    </header>
+    <main>
+      {{{ body }}}
+    </main>
+  {{#if logged_in}}
+  <script src="./js/logout.js"></script>
+  {{/if}}
 </body>
-
 </html>

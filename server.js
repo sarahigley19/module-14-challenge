@@ -1,4 +1,3 @@
-const userRoutes = require('./controllers/api/userRoutes');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -15,34 +14,31 @@ const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({ helpers });
 
 const sess = {
-	secret: 'Super secret secret',
-	cookie: {
-		maxAge: 300000,
-		httpOnly: true,
-		secure: false,
-		sameSite: 'strict',
-	},
-	resave: false,
-	saveUninitialized: true,
-	store: new SequelizeStore({
-		db: sequelize
-	})
+  secret: 'Super secret secret',
+  cookie: {
+    maxAge: 300000,
+    httpOnly: false,
+    secure: false,
+    sameSite: 'strict',
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
 };
 
 app.use(session(sess));
 
 app.engine('handlebars', hbs.engine);
-console.log("handlebars")
 app.set('view engine', 'handlebars');
 
-app.use('/api/users', userRoutes);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use(routes);
 
-sequelize.sync({ force: false }).then(() => {
-	app.listen(PORT, () => console.log('Now listening!'));
+sequelize.sync({ force: true }).then(() => {
+  app.listen(PORT, () => console.log('Now listening!'));
 });

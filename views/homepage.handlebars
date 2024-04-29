@@ -1,16 +1,57 @@
-{{#each posts as |post| }}
-	<div class="row mb-4 post">
-		<div class="col-md-5">
-			<h2>
-				{{{get_emoji}}}
-				<a href="/post/{{post.id}}">{{post.title}}</a>
-			</h2>
-			<p>Created by {{post.user.name}} on {{format_date post.date_created}}</p>
-		</div>
-		<div class="col-md-7">
-			<p>
-				{{post.text}}
-			</p>
-		</div>
-	</div>
-	{{/each}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login and Signup</title>
+  <link rel="stylesheet" href="/css/jass.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-container">
+          <h2>Login</h2>
+          <form class="form login-form">
+            <div class="form-group">
+              <label class="form-label" for="email-login">Email:</label>
+              <input class="form-control" type="text" id="email-login" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="password-login">Password:</label>
+              <input class="form-control" type="password" id="password-login" />
+            </div>
+            <div class="form-group">
+              <button  type="submit">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-container">
+          <h2>Signup</h2>
+          <form class="form signup-form">
+            <div class="form-group">
+              <label class="form-label" for="name-signup">Name:</label>
+              <input class="form-control" type="text" id="name-signup" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email-signup">Email:</label>
+              <input class="form-control" type="text" id="email-signup" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="password-signup">Password:</label>
+              <input class="form-control" type="password" id="password-signup" />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary" type="submit">Signup</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/login.js"></script>
+</body>
+</html>
